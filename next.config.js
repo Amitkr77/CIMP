@@ -3,8 +3,8 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['mongoose'],
   },
-  api: {
-    bodyParser: false,  
-  },
+  // api: {
+  //   bodyParser: false,  
+  // },
 };
 module.exports = nextConfig;
