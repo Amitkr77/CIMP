@@ -1,5 +1,5 @@
-import mongoose, { Schema, Document } from 'mongoose';
-import { Role } from '@/lib/auth';
+import mongoose, { Schema, Document } from "mongoose";
+import { Role } from "@/lib/auth";
 
 export interface IUser extends Document {
   name: string;
@@ -7,6 +7,9 @@ export interface IUser extends Document {
   password: string;
   role: Role;
   createdAt: Date;
+  isVerified: boolean;
+  otp?: string;
+  otpExpiresAt?: Date;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -16,11 +19,15 @@ const UserSchema = new Schema<IUser>(
     password: { type: String, required: true },
     role: {
       type: String,
-      enum: ['incubatee', 'manager', 'ceo'],
-      default: 'incubatee',
+      enum: ["incubatee", "manager", "ceo"],
+      default: "incubatee",
     },
+    isVerified: { type: Boolean, default: false },
+    otp: { type: String },
+    otpExpiresAt: { type: Date },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export const User = mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
+export const User =
+  mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
