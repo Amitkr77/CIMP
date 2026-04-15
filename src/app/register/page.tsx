@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import GoogleButton from "@/components/GoogleButton";
 
 const ROLES = [
   {
@@ -163,6 +164,8 @@ export default function RegisterPage() {
                 />
               </div>
             ))}
+
+            <GoogleButton role={form.role as "incubatee" | "manager" | "ceo"} />
 
             {error && (
               <div className="px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm font-body">

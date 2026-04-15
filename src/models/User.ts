@@ -10,18 +10,20 @@ export interface IUser extends Document {
   isVerified: boolean;
   otp?: string;
   otpExpiresAt?: Date;
+  image?: string;
 }
 
 const UserSchema = new Schema<IUser>(
   {
     name: { type: String, required: true, trim: true },
     email: { type: String, required: true, unique: true, lowercase: true },
-    password: { type: String, required: true },
+    password: { type: String },
     role: {
       type: String,
       enum: ["incubatee", "manager", "ceo"],
       default: "incubatee",
     },
+    image: { type: String },
     isVerified: { type: Boolean, default: false },
     otp: { type: String },
     otpExpiresAt: { type: Date },

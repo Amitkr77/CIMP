@@ -17,6 +17,7 @@ async function getUser() {
 
 export default async function DashboardPage() {
   const user = await getUser();
+  
   if (!user) redirect('/login');
   await connectDB();
 

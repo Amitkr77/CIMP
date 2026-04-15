@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { User } from "@/models/User";
 import { signToken } from "@/lib/auth";
+import { sendWelcomeEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   const { email, otp } = await req.json();
@@ -14,8 +15,6 @@ export async function POST(req: NextRequest) {
 
   await connectDB();
   const user = await User.findOne({ email: email.toLowerCase() });
-  console.log(user);
-  
 
   if (!user)
     return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -37,6 +36,8 @@ export async function POST(req: NextRequest) {
   user.otp = undefined;
   user.otpExpiresAt = undefined;
   await user.save();
+
+  await sendWelcomeEmail(user.email, user.name, user.role);
 
   // Now issue JWT and log them in
   const token = signToken({
