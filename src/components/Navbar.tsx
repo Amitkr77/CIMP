@@ -143,8 +143,6 @@ export default function Navbar({ user }: NavbarProps) {
 
   // Generate Avatar URL based on name if user doesn't have one
   const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=0D8ABC&color=fff&size=128`;
-  console.log(user);
-  
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-lg border-b border-slate-200">
